@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import SeriesDetailsPage from "./pages/SeriesDetailsPage";
 import WatchMoviePage from "./pages/WatchMoviePage";
+import WatchSeriesPage from "./pages/WatchSeriesPage";
 import Navbar from "./components/partials/Navbar";
 import Footer from "./components/partials/Footer";
 
@@ -31,7 +32,8 @@ function App() {
           <Route path="/sign-in" component={SignIn}/>
           <Route path="/movies-details/:movieID" component={MovieDetailsPage}/>
           <Route path="/series-details/:seriesID" component={SeriesDetailsPage}/>
-          <Route path="/watch-movie/:movieID" component={WatchMoviePage}/>
+          <Route path="/watch-movie/:movieID" component={WatchMoviePage} exact/>
+          <Route path="/watch-series/:seriesID" component={WatchSeriesPage} exact/>
         </Switch>
         <Footer/>
       </Router>
