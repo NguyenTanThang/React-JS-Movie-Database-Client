@@ -7,8 +7,8 @@ class StripePayPage extends Component {
 
     async componentDidMount() {
         const subStatus = await getSubStatus();
-        if (subStatus !== "active") {
-            this.props.history.push("/pricing");
+        if (subStatus === "active") {
+            this.props.history.push("/");
         }
     }
 

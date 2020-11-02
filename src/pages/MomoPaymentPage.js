@@ -6,8 +6,8 @@ class MomoPaymentPage extends Component {
 
     async componentDidMount() {
         const subStatus = await getSubStatus();
-        if (subStatus !== "active") {
-            this.props.history.push("/pricing");
+        if (subStatus === "active") {
+            this.props.history.push("/");
         }
         const customerID = localStorage.getItem("userID")
         const amount = localStorage.getItem("amount")
