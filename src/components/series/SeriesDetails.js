@@ -22,7 +22,6 @@ class SeriesDetails extends Component {
         sectionBG();
 
         const subStatus = await getSubStatus();
-        console.log(subStatus);
 
         const seriesID = this.props.seriesIDFromPage;
 
@@ -44,11 +43,11 @@ class SeriesDetails extends Component {
 
     renderWatchButton = () => {
         const {subStatus} = this.state;
-        const {movieItem} = this.props;
-        if (!movieItem || !subStatus) {
+        const {seriesItem} = this.props;
+        if (!seriesItem || !subStatus) {
             return (<></>);
         }
-        const {_id} = movieItem;
+        const {_id} = seriesItem;
         if (subStatus === "active") {
             return (
                 <Link to={`/watch-series/${_id}`} className="section__btn">
