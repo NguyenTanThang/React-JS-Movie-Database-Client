@@ -24,7 +24,7 @@ class PricingPlan extends Component {
         this.props.getAllPlans();
         const subStatus = await getSubStatus();
 
-        if (subStatus !== "active") {
+        if (subStatus === "active") {
             this.props.history.goBack();
             message.error("Your subscription is still valid");
         }
