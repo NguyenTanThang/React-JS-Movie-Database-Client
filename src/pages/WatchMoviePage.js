@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {getMovieByIDAxios} from "../requests/movieRequests";
 import MovieVideo from '../components/movies/MovieVideo';
+import Navbar from "../components/partials/Navbar";
+import {getSubStatus} from "../requests/authRequests";
 
-class MovieDetailsPage extends Component {
+class WatchMoviePage extends Component {
 
     state = {
         movieItem: ""
@@ -12,6 +14,11 @@ class MovieDetailsPage extends Component {
         const movieID = this.props.match.params.movieID;
 
         const movieItem = await getMovieByIDAxios(movieID);
+        const subStatus = await getSubStatus();
+
+        if (subStatus !== "active") {
+            this.props.history.goBack();
+        }
 
         this.setState({
             movieItem
@@ -20,20 +27,21 @@ class MovieDetailsPage extends Component {
 
     render() {
         const {movieItem} = this.state;
-        const {movieURL, name} = movieItem;
+        const {movieURL} = movieItem;
 
         if (!movieItem) {
             return(<></>);
         }
 
         return (
-            <div>
+            <>
+                <Navbar/>
                 <div className="container movie-watch-container">
                     <MovieVideo videoSRC={movieURL}/>
                 </div>
-            </div>
+            </>
         )
     }
 }
 
-export default MovieDetailsPage;
+export default WatchMoviePage;

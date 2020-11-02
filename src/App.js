@@ -11,25 +11,29 @@ import Help from "./pages/Help";
 import PricingPlan from "./pages/PricingPlan";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Logout from "./pages/Logout";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import SeriesDetailsPage from "./pages/SeriesDetailsPage";
 import WatchMoviePage from "./pages/WatchMoviePage";
 import WatchSeriesPage from "./pages/WatchSeriesPage";
-import Navbar from "./components/partials/Navbar";
+import StripePayPage from "./pages/StripePayPage";
+import MomoPaymentPage from "./pages/MomoPaymentPage";
 import Footer from "./components/partials/Footer";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar/>
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/browse" component={Browse}/>
           <Route path="/help" component={Help}/>
           <Route path="/pricing" component={PricingPlan}/>
+          <Route path="/stripe-pay" component={StripePayPage}/>
+          <Route path="/momo-pay" component={MomoPaymentPage}/>
           <Route path="/sign-up" component={SignUp}/>
           <Route path="/sign-in" component={SignIn}/>
+          <Route path="/logout" component={Logout}/>
           <Route path="/movies-details/:movieID" component={MovieDetailsPage}/>
           <Route path="/series-details/:seriesID" component={SeriesDetailsPage}/>
           <Route path="/watch-movie/:movieID" component={WatchMoviePage} exact/>

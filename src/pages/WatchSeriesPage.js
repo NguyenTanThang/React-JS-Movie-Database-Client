@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {getEpisodesBySeriesIDAxios} from "../requests/episodeRequests";
 import MovieVideo from '../components/movies/MovieVideo';
 import TabGenerator from '../components/partials/TabGenerator';
+import Navbar from "../components/partials/Navbar";
+import {getSubStatus} from "../requests/authRequests";
 
-class MovieDetailsPage extends Component {
+class WatchSeriesPage extends Component {
 
     state = {
         episodeList: []
@@ -13,6 +15,11 @@ class MovieDetailsPage extends Component {
         const seriesID = this.props.match.params.seriesID;
 
         const episodeList = await getEpisodesBySeriesIDAxios(seriesID);
+        const subStatus = await getSubStatus();
+
+        if (subStatus !== "active") {
+            this.props.history.goBack();
+        }
 
         this.setState({
             episodeList
@@ -54,15 +61,19 @@ class MovieDetailsPage extends Component {
         const {renderEpisodeListWatchItems} = this;
 
         return (
-            <div className="container episode-watch-tab-container">
-                <div className="row">
-                    <div className="col-12">
-                        {renderEpisodeListWatchItems()}
+            <>
+                <Navbar/>
+                <div className="container episode-watch-tab-container">
+                    <div className="row">
+                        <div className="col-12">
+                            {renderEpisodeListWatchItems()}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
+            
         )
     }
 }
 
-export default MovieDetailsPage;
+export default WatchSeriesPage;

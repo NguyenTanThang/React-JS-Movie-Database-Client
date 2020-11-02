@@ -78,6 +78,8 @@ export default class BrowseEngine extends Component {
                                     <select name="orderBy" onChange={onChangeInput} defaultValue={orderBy}>
                                         <option value="AtoZ">A to Z</option>
                                         <option value="ZtoA">Z to A</option>
+                                        <option value="ratingUp">Rating (Ascending)</option>
+                                        <option value="ratingDown">Rating (Descending)</option>
                                     </select>
                                     <div className="select_arrow">
                                     </div>

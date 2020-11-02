@@ -11,6 +11,7 @@ import SeriesList from "../components/series/SeriesList";
 import HomeHeader from "../components/partials/HomeHeader";
 import TabGenerator from "../components/partials/TabGenerator";
 import {Link} from "react-router-dom";
+import Navbar from "../components/partials/Navbar";
 
 class Home extends Component {
 
@@ -58,7 +59,9 @@ class Home extends Component {
         const {renderTabGen} = this;
 
         return (
-            <div>
+            <>
+                <Navbar/>
+
                 <HomeHeader/>
 
                 <section className="content section-padding">
@@ -74,7 +77,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </section>
-            </div>
+            </>
         )
     }
 }

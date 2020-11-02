@@ -55,6 +55,12 @@ const sortMoviesAndSeriesOrderBy = (list, orderBy) => {
         case "ZtoA":
             returnedList = list.sort((a, b) => b.name.localeCompare(a.name))
             break;
+        case "ratingUp":
+            returnedList = list.sort((a, b) => a.rating - b.rating)
+            break;
+        case "ratingDown":
+            returnedList = list.sort((a, b) => b.rating - a.rating)
+            break;
         default:
             break;
     }

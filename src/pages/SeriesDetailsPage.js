@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import SeriesItem from "../components/series/SeriesItem";
 import {getRandom} from "../utils/utils";
 import {Empty} from "antd";
+import Navbar from "../components/partials/Navbar";
 
 class SeriesDetailsPage extends Component {
 
@@ -85,7 +86,10 @@ class SeriesDetailsPage extends Component {
         const seriesIDFromPage = this.props.match.params.seriesID;
 
         return (
-            <div>
+            <>
+                <Navbar/>
+
+                <div>
                 <SeriesDetails seriesIDFromPage={seriesIDFromPage} seriesItem={seriesItem}/>
                 <div className="container">
                     <div className="row">
@@ -104,6 +108,7 @@ class SeriesDetailsPage extends Component {
                     </div>
                 </div>
             </div>
+            </>
         )
     }
 }

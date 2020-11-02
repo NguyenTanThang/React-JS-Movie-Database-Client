@@ -5,39 +5,65 @@ import MovieVideo from "./MovieVideo";
 import RateMovieModal from "./RateMovieModal";
 import {Link} from "react-router-dom";
 import { Tooltip } from 'antd';
-import {customerID} from "../../config/config";
 import {addWatchLater, deleteWatchLater, getWatchLaterByCustomerIDAndMovieID} from "../../requests/watchLaterRequests";
 import {isObjectEmpty} from '../../utils/validate';
+import {getSubStatus} from "../../requests/authRequests";
+
+const customerID = localStorage.getItem("userID")
 
 class MovieDetails extends Component {
 
     state = {
-        liked: false
+        liked: false,
+        subStatus: ""
     }
 
     async componentDidMount() {
         sectionBG();
 
+        const subStatus = await getSubStatus();
+
         const movieID = this.props.movieIDFromPage;
 
-            let liked = false;
+        let liked = false;
     
-            const watchLaterItem = await getWatchLaterByCustomerIDAndMovieID(customerID, movieID);
+        const watchLaterItem = await getWatchLaterByCustomerIDAndMovieID(customerID, movieID);
     
-            if (!watchLaterItem || isObjectEmpty(watchLaterItem)) {
-                liked = false;
-            } else {
-                liked = true;
-            }
+        if (!watchLaterItem || isObjectEmpty(watchLaterItem)) {
+            liked = false;
+        } else {
+            liked = true;
+        }
     
-            this.setState({
-                liked
-            })
+        this.setState({
+            liked,
+            subStatus
+        })
         
     }
 
-    renderDetailTabs = () => {
-
+    renderWatchButton = () => {
+        const {subStatus} = this.state;
+        const {movieItem} = this.props;
+        if (!movieItem || !subStatus) {
+            return (<></>);
+        }
+        const {_id} = movieItem;
+        if (subStatus === "active") {
+            return (
+                <Link to={`/watch-movie/${_id}`} className="section__btn">
+                    <i className="fas fa-play-circle fa-2x" aria-hidden="true" style={{paddingRight: "10px"}}></i>
+                    WATCH NOW
+                </Link>
+            )
+        } else {
+            return (
+                <Link to={`/pricing`} className="section__btn">
+                    <i className="fas fa-money-bill fa-2x" aria-hidden="true" style={{paddingRight: "10px"}}></i>
+                    SUBSCRIBE
+                </Link>
+            )
+        }
     }
 
     changeLikeStatus = async () => {
@@ -56,7 +82,7 @@ class MovieDetails extends Component {
     }
 
     render() {
-        const {changeLikeStatus} = this;
+        const {changeLikeStatus, renderWatchButton} = this;
         const {liked} = this.state;
         const {movieItem} = this.props;
 
@@ -99,10 +125,7 @@ class MovieDetails extends Component {
                             <div class="card__cover">
                                 <img src={posterURL} alt=""/>
                             </div>
-                            <Link to={`/watch-movie/${_id}`} className="section__btn">
-                                <i className="fas fa-play-circle fa-2x" aria-hidden="true" style={{paddingRight: "10px"}}></i>
-                                WATCH NOW
-                            </Link>
+                            {renderWatchButton()}
                             <RateMovieModal movieID={_id}/>
                         </div>
 

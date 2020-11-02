@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import { Modal } from 'antd';
 import {
-  customerID
-} from "../../config/config";
-import {
   isObjectEmpty
 } from "../../utils/validate";
 import {
@@ -11,6 +8,8 @@ import {
   addRating,
   editRating
 } from "../../requests/reviewRequests";
+
+const customerID = localStorage.getItem("userID")
 
 class RateMovieModal extends Component {
   state = { 

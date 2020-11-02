@@ -4,11 +4,40 @@ import {Link} from "react-router-dom";
 
 export default class Navbar extends Component {
 
+    state = {
+        customerID: ""
+    }
+
     componentDidMount() {
         menuNav();
+        this.setState({
+            customerID: localStorage.getItem("userID")
+        })
+    }
+
+    renderAuthButton = () => {
+        const {customerID} = this.state;
+
+        if (customerID) {
+            return (
+                <Link to="/logout" className="header__sign-in">
+                    <i className="fas fa-sign-out-alt"></i>
+                    <span>logout</span>
+                </Link>
+            )
+        } else {
+            return (
+                <Link to="/sign-in" className="header__sign-in">
+                    <i className="fas fa-sign-in-alt"></i>
+                    <span>sign in</span>
+                </Link>
+            )
+        }
     }
 
     render() {
+        const {renderAuthButton} = this;
+
         return (
 	<header className="header">
     <div className="header__wrap">
@@ -41,11 +70,7 @@ export default class Navbar extends Component {
                         </ul>
 
                         <div className="header__auth">
-                            <Link to="/sign-in" className="header__sign-in">
-                                <i className="fas fa-sign-in-alt"></i>
-                                <span>sign in</span>
-                            </Link>
-
+                            {renderAuthButton()}
                         </div>
 
                         <button className="header__btn" type="button">

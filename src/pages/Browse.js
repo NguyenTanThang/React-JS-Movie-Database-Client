@@ -17,6 +17,7 @@ import TabGenerator from "../components/partials/TabGenerator";
 import Pagination from "../components/partials/Pagination";
 import {sortMoviesAndSeries} from "../utils/sorters";
 import {paginate} from "../utils/paginate";
+import Navbar from "../components/partials/Navbar";
 
 const browseBreadcumbs = [
     {
@@ -115,7 +116,10 @@ class Browse extends Component {
         const {genres} = this.props;
 
         return (
-            <div>
+            <>
+                <Navbar/>
+
+                <div>
                 <PageTitle title="Browse" breadcumbs={browseBreadcumbs}/>
 
                 <section className="content section-padding">
@@ -135,6 +139,7 @@ class Browse extends Component {
                     </div>
                 </section>
             </div>
+            </>
         )
     }
 }

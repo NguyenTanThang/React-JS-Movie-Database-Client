@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import MovieItem from "../components/movies/MovieItem";
 import {getRandom} from "../utils/utils";
 import {Empty} from "antd";
+import Navbar from "../components/partials/Navbar";
 
 class MovieDetailsPage extends Component {
 
@@ -83,7 +84,10 @@ class MovieDetailsPage extends Component {
         const movieIDFromPage = this.props.match.params.movieID;
 
         return (
-            <div>
+            <>
+                <Navbar/>
+
+                <div>
                 <MovieDetails movieIDFromPage={movieIDFromPage} movieItem={movieItem}/>
                 <div className="container">
                     <div className="row">
@@ -102,6 +106,7 @@ class MovieDetailsPage extends Component {
                     </div>
                 </div>
             </div>
+            </>
         )
     }
 }

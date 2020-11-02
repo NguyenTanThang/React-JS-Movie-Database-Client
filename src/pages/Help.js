@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PageTitle from "../components/partials/PageTitle";
+import Navbar from "../components/partials/Navbar";
 
 const helpBreadcumbs = [
     {
@@ -15,7 +16,10 @@ const helpBreadcumbs = [
 export default class Help extends Component {
     render() {
         return (
-            <div>
+            <>
+                <Navbar/>
+
+                <div>
                 <PageTitle title="Help" breadcumbs={helpBreadcumbs}/>
 
 	<section className="section">
@@ -79,6 +83,9 @@ export default class Help extends Component {
     </div>
 </section>
             </div>
+            </>
+
+            
         )
     }
 }
