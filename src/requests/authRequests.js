@@ -8,6 +8,34 @@ import {
 
 const USER_URL = `${MAIN_PROXY_URL}/customers`;
 const SUB_URL = `${MAIN_PROXY_URL}/subscriptions`;
+const CUSTOMER_URL = `${MAIN_PROXY_URL}/customers`;
+
+export const getAuthStatus = async () => {
+    try {
+        const customerID = localStorage.getItem("userID");
+
+        if (!customerID) {
+            return false;
+        }
+
+        const res = await axios.get(`${CUSTOMER_URL}/${customerID}`);
+
+        const {success} = res.data;
+        const user = res.data.data;
+
+        if (!success) {
+            return false;
+        }
+
+        if (!user) {
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        message.error(error.message, 5);
+    }
+}
 
 export const getSubStatus = async () => {
     try {

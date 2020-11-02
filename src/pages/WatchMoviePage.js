@@ -3,6 +3,7 @@ import {getMovieByIDAxios} from "../requests/movieRequests";
 import MovieVideo from '../components/movies/MovieVideo';
 import Navbar from "../components/partials/Navbar";
 import {getSubStatus} from "../requests/authRequests";
+import {message} from "antd";
 
 class WatchMoviePage extends Component {
 
@@ -17,7 +18,8 @@ class WatchMoviePage extends Component {
         const subStatus = await getSubStatus();
 
         if (subStatus !== "active") {
-            this.props.history.goBack();
+            this.props.history.push("/pricing");
+            message.error("You need to subscribe before watching");
         }
 
         this.setState({

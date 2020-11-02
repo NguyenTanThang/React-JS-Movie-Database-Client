@@ -45,9 +45,11 @@ class MovieDetailsPage extends Component {
                 )
             })
         } else {
-            return <div className="col-12 text-center pb-4">
-            <Empty description="No Movie"/>
-        </div>
+            return (
+                <div className="col-12 text-center pb-4">
+                    <Empty description="No Movie"/>
+                </div>
+            )
         }
         
     }

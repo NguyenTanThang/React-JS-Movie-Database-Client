@@ -4,6 +4,8 @@ import Navbar from "../components/partials/Navbar";
 import {connect} from "react-redux";
 import {getAllPlans} from "../actions/planActions";
 import PlanList from "../components/plans/PlanList";
+import {getSubStatus} from "../requests/authRequests";
+import {message} from "antd";
 
 const pricingBreadcumbs = [
     {
@@ -18,8 +20,14 @@ const pricingBreadcumbs = [
 
 class PricingPlan extends Component {
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.getAllPlans();
+        const subStatus = await getSubStatus();
+
+        if (subStatus !== "active") {
+            this.props.history.goBack();
+            message.error("Your subscription is still valid");
+        }
     }
 
     render() {

@@ -4,6 +4,8 @@ import sectionBgImage from "../images/section.jpg";
 import {Link} from "react-router-dom";
 import {signup} from "../requests/authRequests";
 import Navbar from "../components/partials/Navbar";
+import {getAuthStatus} from "../requests/authRequests";
+import {message} from "antd";
 
 export default class SignUp extends Component {
 
@@ -13,8 +15,13 @@ export default class SignUp extends Component {
         password: ""
     }
 
-    componentDidMount() {
-        sectionBG()
+    async componentDidMount() {
+        sectionBG();
+        const loggedIn = await getAuthStatus();
+        if (loggedIn) {
+            this.props.history.push("/");
+            message.error("You are already logged in");
+        }
     }
 
     onChange = (e) => {
