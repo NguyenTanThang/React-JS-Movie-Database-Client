@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import SeriesItem from "./SeriesItem";
 import { Empty } from 'antd';
+import Loading from "../partials/Loading";
 
 class SeriesList extends Component {
 
     renderSeriesItems = () => {
-        const {series} = this.props;
+        const {series, loading} = this.props;
+
+        if (loading) {
+            return (<Loading/>)
+        }
 
         if (series.length === 0) {
             return (

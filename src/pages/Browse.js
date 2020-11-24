@@ -73,7 +73,7 @@ class Browse extends Component {
     }
 
     renderTabGen = () => {
-        const {movies, series} = this.props;
+        const {movies, series, loading} = this.props;
         const {searchObject, seriesCurrentPage, moviesCurrentPage} = this.state;
         const {changeSeriesPageNumber, changeMoviesPageNumber} = this;
         let currentMovies = movies;
@@ -91,13 +91,13 @@ class Browse extends Component {
         const tabContents = [
             (
                 <>
-                    <MovieList movies={currentMovies}/>
+                    <MovieList movies={currentMovies} loading={loading}/>
                     <Pagination pageObject={moviesPageObject} onChangePageNumber={changeMoviesPageNumber}/>
                 </>
             ),
             (
                 <>
-                    <SeriesList series={currentSeries}/>
+                    <SeriesList series={currentSeries} loading={loading}/>
                     <Pagination pageObject={seriesPageObject} onChangePageNumber={changeSeriesPageNumber}/>
                 </>
             )
@@ -163,6 +163,7 @@ const mapStateToProps = (state) => {
         movies: state.movieReducer.movies,
         series: state.seriesReducer.series,
         genres: state.genreReducer.genres,
+        loading: state.loadingReducer.loading
     }
 }
 

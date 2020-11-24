@@ -7,7 +7,8 @@ import {Link} from "react-router-dom";
 import { Tooltip } from 'antd';
 import {addWatchLater, deleteWatchLater, getWatchLaterByCustomerIDAndMovieID} from "../../requests/watchLaterRequests";
 import {isObjectEmpty} from '../../utils/validate';
-import {getSubStatus} from "../../requests/authRequests";
+import {getSubStatus, getAuthStatus} from "../../requests/authRequests";
+import {message} from "antd";
 
 const customerID = localStorage.getItem("userID")
 
@@ -15,13 +16,15 @@ class MovieDetails extends Component {
 
     state = {
         liked: false,
-        subStatus: ""
+        subStatus: "",
+        loggedIn: ""
     }
 
     async componentDidMount() {
         sectionBG();
 
         const subStatus = await getSubStatus();
+        const loggedIn = await getAuthStatus();
 
         const movieID = this.props.movieIDFromPage;
 
@@ -37,7 +40,8 @@ class MovieDetails extends Component {
     
         this.setState({
             liked,
-            subStatus
+            subStatus,
+            loggedIn
         })
         
     }
@@ -81,9 +85,24 @@ class MovieDetails extends Component {
         })
     }
 
+    renderLikeButton = () => {
+        const {loggedIn, liked} = this.state;
+        const {changeLikeStatus} = this;
+
+        if (loggedIn) {
+            return (
+                <Tooltip title={liked ? "Dislike" : "Like"}>
+                    <li className="like-button" onClick={changeLikeStatus} style={liked ? {color: "#ff55a5", border: "1px solid #ff55a5"} : {}}>
+                        <i className="fa fa-heart" aria-hidden="true"></i>
+                    </li>
+                 </Tooltip>
+            )
+        }
+        
+    }
+
     render() {
-        const {changeLikeStatus, renderWatchButton} = this;
-        const {liked} = this.state;
+        const {renderWatchButton, renderLikeButton} = this;
         const {movieItem} = this.props;
 
         if (!movieItem) {
@@ -137,11 +156,7 @@ class MovieDetails extends Component {
                                     <ul class="card__list">
                                         <li>HD</li>
                                         <li>{Rated}</li>
-                                        <Tooltip title={liked ? "Dislike" : "Like"}>
-                                            <li className="like-button" onClick={changeLikeStatus} style={liked ? {color: "#ff55a5", border: "1px solid #ff55a5"} : {}}>
-                                                <i className="fa fa-heart" aria-hidden="true"></i>
-                                            </li>
-                                        </Tooltip>
+                                        {renderLikeButton()}
                                     </ul>
                                 </div>
 

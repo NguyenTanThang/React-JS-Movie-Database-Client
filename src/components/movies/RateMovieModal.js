@@ -8,6 +8,9 @@ import {
   addRating,
   editRating
 } from "../../requests/reviewRequests";
+import {getAuthStatus} from "../../requests/authRequests";
+import {message} from "antd";
+import {withRouter} from "react-router-dom";
 
 const customerID = localStorage.getItem("userID")
 
@@ -23,6 +26,8 @@ class RateMovieModal extends Component {
     const {movieID} = this.props;
     const review = await getReviewByCustomerIDAndMovieIDAxios(movieID, customerID);
 
+    const loggedIn = await getAuthStatus();
+
     if (!review) {
 
     } else {
@@ -30,7 +35,8 @@ class RateMovieModal extends Component {
         this.setState({
           grading: review.grading,
           isRated: true,
-          reviewID: review._id
+          reviewID: review._id,
+          loggedIn
         })
       }
     }
@@ -38,6 +44,15 @@ class RateMovieModal extends Component {
   }
 
   showModal = () => {
+    const {loggedIn} = this.state;
+    if (!loggedIn) {
+      this.props.history.push("/sign-in");
+      message.error("You can rate a moive after logging in");
+      return this.setState({
+        visible: false,
+      });
+    }
+
     this.setState({
       visible: true,
     });
@@ -103,4 +118,4 @@ class RateMovieModal extends Component {
   }
 }
 
-export default (RateMovieModal);
+export default withRouter(RateMovieModal);

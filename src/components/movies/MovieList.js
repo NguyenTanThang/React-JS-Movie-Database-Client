@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import MovieItem from "./MovieItem";
 import { Empty } from 'antd';
+import Loading from "../partials/Loading";
+//import {connect} from "react-redux";
 
 class MovieList extends Component {
 
+    componentDidMount() {
+        console.log(this.props);
+    }
+
     renderMovieItems = () => {
-        const {movies} = this.props;
+        const {movies, loading} = this.props;
+
+        if (loading) {
+            return (<Loading/>)
+        }
 
         if (movies.length === 0) {
             return (
@@ -38,5 +48,15 @@ class MovieList extends Component {
         )
     }
 }
+
+/*
+const mapStateToProps = (state) => {
+    return {
+        loading: state.loadingReducer.loading,
+    }
+}
+
+export default connect(mapStateToProps, null)(MovieList);
+*/
 
 export default MovieList;

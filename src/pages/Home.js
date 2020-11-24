@@ -21,7 +21,7 @@ class Home extends Component {
     }
 
     renderTabGen = () => {
-        const {movies, series} = this.props;
+        const {movies, series, loading} = this.props;
         let currentMovies = movies;
         let currentSeries = series;
 
@@ -31,7 +31,7 @@ class Home extends Component {
         const tabContents = [
             (
                 <>
-                    <MovieList movies={currentMovies}/>
+                    <MovieList movies={currentMovies} loading={loading}/>
                     <Link to="/browse" className="section__btn">
                         Browse More
                     </Link>
@@ -39,7 +39,7 @@ class Home extends Component {
             ),
             (
                 <>
-                    <SeriesList series={currentSeries}/>
+                    <SeriesList series={currentSeries} loading={loading}/>
                     <Link to="/browse" className="section__btn">
                         Browse More
                     </Link>
@@ -96,7 +96,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         movies: state.movieReducer.movies,
-        series: state.seriesReducer.series
+        series: state.seriesReducer.series,
+        loading: state.loadingReducer.loading
     }
 }
 
