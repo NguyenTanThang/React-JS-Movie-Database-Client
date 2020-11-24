@@ -8,7 +8,6 @@ import { Tooltip } from 'antd';
 import {addWatchLater, deleteWatchLater, getWatchLaterByCustomerIDAndMovieID} from "../../requests/watchLaterRequests";
 import {isObjectEmpty} from '../../utils/validate';
 import {getSubStatus, getAuthStatus} from "../../requests/authRequests";
-import {message} from "antd";
 
 const customerID = localStorage.getItem("userID")
 
