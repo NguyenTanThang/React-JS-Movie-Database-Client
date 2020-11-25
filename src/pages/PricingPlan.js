@@ -21,13 +21,14 @@ const pricingBreadcumbs = [
 class PricingPlan extends Component {
 
     async componentDidMount() {
-        this.props.getAllPlans();
         const subStatus = await getSubStatus();
 
         if (subStatus === "active") {
-            this.props.history.goBack();
             message.error("Your subscription is still valid");
+            this.props.history.goBack();
         }
+
+        this.props.getAllPlans();
     }
 
     render() {
