@@ -8,9 +8,11 @@ import {
 
 const MOMOS_URL = `${MAIN_PROXY_URL}/momos`;
 
-export const getPayURL = async (customerID, amount) => {
+export const getPayURL = async (customerID, obj) => {
     try {
-        const res = await axios.get(`${MOMOS_URL}/amount/${amount}/customerID/${customerID}`);
+        const {amount, planID} = obj;
+
+        const res = await axios.get(`${MOMOS_URL}/amount/${amount}/customerID/${customerID}/planID/${planID}`);
 
         const payURL = res.data.payUrl;
 

@@ -17,7 +17,8 @@ class MomoPaymentPage extends Component {
         }
         const customerID = localStorage.getItem("userID")
         const amount = localStorage.getItem("amount")
-        const payUrl = await getPayURL(customerID, amount);
+        const planID = localStorage.getItem("planID")
+        const payUrl = await getPayURL(customerID, {amount, planID});
         window.location = payUrl;
     }
 

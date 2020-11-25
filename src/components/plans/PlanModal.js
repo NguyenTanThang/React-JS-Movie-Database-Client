@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import {Modal} from "antd";
 import {withRouter} from "react-router-dom";
+import {USDtoVND} from "../../requests/currencyRequests";
 
 class PlanModal extends Component {
 
-    state = { visible: false };
+    state = { 
+        visible: false,
+        vndPrice: ""
+     };
+
+    async componentDidMount() {
+        const {planItem} = this.props;
+        const {price} = planItem;
+        const vndPrice = await USDtoVND(price);
+        
+        this.setState({
+            vndPrice
+        })
+    }
 
     showModal = () => {
         this.setState({
@@ -14,8 +28,10 @@ class PlanModal extends Component {
 
     payWithMomo = () => {
         const {planItem} = this.props;
-        const {priceVND} = planItem;
-        localStorage.setItem("amount", priceVND);
+        const {vndPrice} = this.state;
+        console.log(vndPrice);
+        localStorage.setItem("amount", vndPrice);
+        localStorage.setItem("planID", planItem._id);
         this.props.history.push("/momo-pay");
     }
 
@@ -23,6 +39,7 @@ class PlanModal extends Component {
         const {planItem} = this.props;
         const {price} = planItem;
         localStorage.setItem("amount", Math.round(price * 100));
+        localStorage.setItem("planID", planItem._id);
         this.props.history.push("/stripe-pay");
     }
 
