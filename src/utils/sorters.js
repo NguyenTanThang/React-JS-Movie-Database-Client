@@ -4,7 +4,7 @@ export const sortMoviesAndSeries = (list, searchObject) => {
         orderBy,
         sortGenres
     } = searchObject;
-    let returnedList = list
+    let returnedList = list;
 
     if (searchName) {
         returnedList = sortMoviesAndSeriesByName(returnedList, searchName);
@@ -24,16 +24,24 @@ export const sortMoviesAndSeries = (list, searchObject) => {
 const sortMoviesAndSeriesByGenres = (list, sortGenres) => {
     let returnedList = [];
 
+    /*
     sortGenres.forEach(sortGenre => {
         list.forEach(item => {
-            console.log("item.genres.includes(sortGenre)")
-            console.log(item.genres.includes(sortGenre))
             if (item.genres.includes(sortGenre)) {
                 if (!returnedList.includes(item)) {
                     returnedList.push(item);
                 }
             }
         })
+    })
+    */
+
+    list.forEach(item => {
+        if (item.genres.sort().join("").includes(sortGenres.sort().join(""))) {
+            if (!returnedList.includes(item)) {
+                returnedList.push(item);
+            }
+        }
     })
 
     return returnedList;
