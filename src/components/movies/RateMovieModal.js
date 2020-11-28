@@ -19,7 +19,8 @@ class RateMovieModal extends Component {
     visible: false, 
     grading: 0, 
     isRated: false, 
-    reviewID: "" 
+    reviewID: "" ,
+    loggedIn: ""
   };
 
   async componentDidMount() {
@@ -47,7 +48,7 @@ class RateMovieModal extends Component {
     const {loggedIn} = this.state;
     if (!loggedIn) {
       this.props.history.push("/sign-in");
-      message.error("You can rate a moive after logging in");
+      message.error("You can rate a movie after logging in");
       return this.setState({
         visible: false,
       });
