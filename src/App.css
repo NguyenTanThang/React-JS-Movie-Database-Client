@@ -1316,6 +1316,7 @@ input[type=range]::-ms-thumb {
 
 .card__cover img {
     width: 100%;
+    min-height: 220px;
 }
 
 .card__cover:before {
