@@ -52,7 +52,7 @@ export default class Navbar extends Component {
 
                         <ul className="header__nav">
                             <li className="header__nav-item">
-                                <Link to="/" className="header__nav-link">Home</Link>
+                                <Link to="/home" className="header__nav-link">Home</Link>
                             </li>
 
                             <li className="header__nav-item">

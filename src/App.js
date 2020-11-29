@@ -6,6 +6,7 @@ import "./App.css";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 import Browse from "./pages/Browse";
 import Help from "./pages/Help";
 import PricingPlan from "./pages/PricingPlan";
@@ -25,7 +26,8 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" exact component={Home}/>
+          <Route path="/" exact component={LandingPage}/>
+          <Route path="/home" exact component={Home}/>
           <Route path="/browse" component={Browse}/>
           <Route path="/help" component={Help}/>
           <Route path="/pricing" component={PricingPlan}/>
